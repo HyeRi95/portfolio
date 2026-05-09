@@ -1,0 +1,1258 @@
+# portfolio
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조혜리 | Data Analyst Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --primary-light: #DBEAFE;
+            --primary-bg: #F0F7FF;
+            --accent: #0EA5E9;
+            --accent-light: #E0F2FE;
+            --dark: #0F172A;
+            --dark-secondary: #1E293B;
+            --gray: #64748B;
+            --gray-light: #94A3B8;
+            --gray-border: #E2E8F0;
+            --white: #FFFFFF;
+            --gradient-main: linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%);
+            --gradient-subtle: linear-gradient(135deg, #F0F7FF 0%, #E0F2FE 100%);
+            --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 60px rgba(37,99,235,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Scroll Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-up {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .scale-up.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-main);
+            z-index: 1001;
+            transition: width 0.1s linear;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-border);
+            padding: 14px 40px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 40px 80px;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--primary-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hero-bg-shape.shape1 {
+            top: -150px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: var(--primary-light);
+        }
+
+        .hero-bg-shape.shape2 {
+            bottom: -100px;
+            left: -80px;
+            width: 400px;
+            height: 400px;
+            background: var(--accent-light);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 46px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero-text h1 .highlight {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .desc {
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-main);
+        }
+
+        .profile-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-light);
+            margin-bottom: 18px;
+        }
+
+        .profile-card .name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .profile-card .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .profile-card .contact-info {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-border);
+        }
+
+        .profile-card .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 6px;
+        }
+
+        .profile-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .profile-card .tags span {
+            background: var(--primary-bg);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Section */
+        section {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .label {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .section-header h2 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* Core Strengths */
+        .strengths-section {
+            background: var(--gradient-subtle);
+        }
+
+        .strengths-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .strength-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px 24px;
+            border: 1px solid var(--gray-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .strength-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(37, 99, 235, 0.1);
+        }
+
+        .strength-card .icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-main);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 16px;
+            color: white;
+        }
+
+        .strength-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .strength-card p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Experience */
+        .experience-section {
+            background: var(--white);
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent), var(--gray-border));
+        }
+
+        .timeline-item {
+            padding-left: 64px;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-item .company {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+
+        .timeline-item .role {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .timeline-item .period {
+            font-size: 13px;
+            color: var(--gray-light);
+            margin-bottom: 16px;
+        }
+
+        .work-detail {
+            background: var(--gradient-card);
+            border-radius: 12px;
+            padding: 22px;
+            border: 1px solid var(--gray-border);
+            margin-bottom: 12px;
+        }
+
+        .work-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .work-detail h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .work-detail h4::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .work-detail p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .work-highlight {
+            background: var(--primary-light);
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-top: 10px;
+        }
+
+        .work-highlight p {
+            font-size: 13px;
+            color: var(--dark-secondary);
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        .work-highlight .impact {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        /* Education block */
+        .education-block {
+            max-width: 900px;
+            margin: 48px auto 0;
+            padding-top: 48px;
+            border-top: 2px solid var(--gray-border);
+        }
+
+        .education-block h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .edu-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .edu-item:last-child {
+            border-bottom: none;
+        }
+
+        .edu-date {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 140px;
+        }
+
+        .edu-content {
+            font-size: 14px;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .edu-content .sub {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* Skills */
+        .skills-section {
+            background: var(--gradient-subtle);
+        }
+
+        .skills-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid var(--gray-border);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .skill-card .skill-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+
+        .skill-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .skill-card .skill-list {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.9;
+        }
+
+        /* Certifications */
+        .cert-section {
+            background: var(--white);
+        }
+
+        .cert-lang-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 32px;
+        }
+
+        .cert-card, .lang-card {
+            background: var(--gradient-card);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--gray-border);
+        }
+
+        .cert-card h3, .lang-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cert-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .cert-row:last-child {
+            border-bottom: none;
+        }
+
+        .cert-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .cert-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cert-org {
+            font-size: 11px;
+            color: var(--gray);
+        }
+
+        .cert-date {
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+            background: var(--primary-light);
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        .lang-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .lang-row:last-child {
+            border-bottom: none;
+        }
+
+        .lang-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .lang-sub {
+            font-size: 11px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .lang-score {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Value Props */
+        .value-section {
+            background: var(--gradient-subtle);
+        }
+
+        .value-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .value-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--gray-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(37, 99, 235, 0.08);
+        }
+
+        .value-card .v-num {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .value-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .value-card p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .footer .contact-line {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .strengths-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-lang-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .edu-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-logo">CHO HYERI </div>
+            <ul class="nav-links">
+                <li><a href="#about">소개</a></li>
+                <li><a href="#strengths">핵심 역량</a></li>
+                <li><a href="#experience">경력&교육</a></li>
+                <li><a href="#skills">기술 스택</a></li>
+                <li><a href="#cert">자격증</a></li>
+                <li><a href="#value">제공 가치</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="about">
+        <div class="hero-bg-shape shape1"></div>
+        <div class="hero-bg-shape shape2"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge">Data Analyst Portfolio</div>
+                <h1>
+                    데이터 추출에 그치지 않고<br>
+                    <span class="highlight">문제를 정의하고<br>구조를 설계</span>합니다
+                </h1>
+                <p class="desc">
+                    BigQuery 기반 대용량 데이터 분석, 비즈니스 문제 구조화, 
+                    반복 업무 자동화, AI 에이전트 설계까지 — 
+                    데이터로 운영 구조를 만들어온 분석가입니다.
+                </p>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card scale-up">
+                    <img src="https://drive.google.com/thumbnail?id=1YhghOXHu9mX7seLGr3NVzxo3Aueb3hTQ&sz=w300" 
+                         alt="조혜리 프로필 사진" 
+                         referrerpolicy="no-referrer">
+                    <div class="name">조혜리</div>
+                    <div class="title">Data Analyst</div>
+                    <div class="contact-info">
+                        <div class="contact-item">📧 chohyeri0327@gmail.com</div>
+                        <div class="contact-item">📍 서울 성동구</div>
+                    </div>
+                    <div class="tags">
+                        <span>BigQuery</span>
+                        <span>Python</span>
+                        <span>SQL</span>
+                        <span>Tableau</span>
+                        <span>AI Agent</span>
+                        <span>자동화</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Strengths -->
+    <section class="strengths-section" id="strengths">
+        <div class="section-header fade-up">
+            <span class="label">CORE STRENGTHS</span>
+            <h2>핵심 역량</h2>
+            <p>데이터 분석가로서 실무에서 검증한 6가지 핵심 역량</p>
+        </div>
+        <div class="strengths-grid">
+            <div class="strength-card fade-up delay-1">
+                <div class="icon">🔍</div>
+                <h4>SQL 기반 데이터 추출·분석</h4>
+                <p>BigQuery, Redshift, PostgreSQL 기반 대용량 데이터 추출 및 다차원 분석. 전 도메인(매출·회원·프로모션) 데이터 처리 전담 경험.</p>
+            </div>
+            <div class="strength-card fade-up delay-2">
+                <div class="icon">🧩</div>
+                <h4>비즈니스 문제 구조화</h4>
+                <p>반복 요청 패턴화 → 핵심 구조 추출 → 범용 쿼리 설계. 추상적 비즈니스 고민을 검증 가능한 데이터 구조로 변환.</p>
+            </div>
+            <div class="strength-card fade-up delay-3">
+                <div class="icon">📊</div>
+                <h4>시각화 및 인사이트 전달</h4>
+                <p>Tableau 보고서, Folium 지도 시각화, Matplotlib/Seaborn 기반 분석 결과를 비즈니스 맥락에 맞게 커뮤니케이션.</p>
+            </div>
+            <div class="strength-card fade-up delay-4">
+                <div class="icon">🤝</div>
+                <h4>다부서 협업·커뮤니케이션</h4>
+                <p>리테일·마케팅·MD 등 유관부서와 협업하며, 비즈니스 목적을 먼저 이해하고 데이터 분석 구조를 설계.</p>
+            </div>
+            <div class="strength-card fade-up delay-5">
+                <div class="icon">⚡</div>
+                <h4>업무 자동화·ETL 설계</h4>
+                <p>Python + Slack API 연동 이상치 자동 감지, ETL 파이프라인 자동화로 수동 업무를 구조화된 자동 시스템으로 전환.</p>
+            </div>
+            <div class="strength-card fade-up delay-6">
+                <div class="icon">🤖</div>
+                <h4>생성형 AI 활용 생산성 극대화</h4>
+                <p>Gemini AI 에이전트 + Google Drive 연동으로 과거 쿼리 자동 탐색 체계 설계. AI를 분석 업무에 직접 연결.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Education -->
+    <section class="experience-section" id="experience">
+        <div class="section-header fade-up">
+            <span class="label">EXPERIENCE & EDUCATION</span>
+            <h2>경력사항 & 교육</h2>
+            <p>데이터를 다루는 기술과 문제를 정의하는 역량을 함께 쌓아온 여정</p>
+        </div>
+        <div class="timeline">
+            <!-- 올리브영 -->
+            <div class="timeline-item fade-left">
+                <div class="company">올리브영 (계약직)</div>
+                <div class="role">데이터 추출 및 분석 지원</div>
+                <div class="period">2025.09 ~ 현재</div>
+
+                <div class="work-detail">
+                    <h4>SQL 기반 대용량 데이터 추출·분석 전담</h4>
+                    <p>BigQuery 기반 SQL로 매출·쿠폰·결제수단·회원·어필리에이트 등 전 도메인 데이터 추출 및 유관부서(리테일·마케팅·MD) 분석 지원. 온라인(앱/웹)·오프라인(매장) 분리 적재 환경에서 채널 간 데이터 정합성 검증 및 통합 분석 수행. 프로모션 다차원 분석(성별·연령대·등급·첫구매 여부 세그먼트).</p>
+                </div>
+
+                <div class="work-detail">
+                    <h4>비즈니스 문제 구조화 및 정기지표 설계 ★</h4>
+                    <p>반복적인 유사 데이터 요청을 패턴화하여 핵심 구조를 추출, 비즈니스 문제를 데이터 구조로 변환. 기준기간·분석기간·매장코드를 변수로 분리한 범용 쿼리 설계 → 10건 이상 케이스에 재활용.</p>
+                    <div class="work-highlight">
+                        <p>정기지표 사이트에 탑재하여 현업 담당자가 변수 입력 후 엑셀로 직접 다운로드하는 셀프서비스 환경 구성. 폐점 매장 고객 이동 분석, 신규 오픈·리뉴얼 효과 분석, 상권 카니발리제이션 분석 등에 적용.</p>
+                        <span class="impact">셀프서비스 환경 구축 → 반복 요청 감소</span>
+                    </div>
+                </div>
+
+                <div class="work-detail">
+                    <h4>데이터 품질 모니터링 자동화</h4>
+                    <p>어필리에이트 데이터 이상치 발견 지연 문제 인식 → 자동화 시스템 직접 설계. BigQuery + Python + Slack API 연동으로 일 평균 대비 이상 회원·상품 자동 감지 및 알림 구현.</p>
+                    <div class="work-highlight">
+                        <p>수동 모니터링 구조를 자동화된 데이터 품질 감지 체계로 전환. 이상치 발견 리드타임 대폭 단축.</p>
+                        <span class="impact">수동 → 자동 전환 · 실시간 알림 체계 구축</span>
+                    </div>
+                </div>
+
+                <div class="work-detail">
+                    <h4>생성형 AI 활용 분석 생산성 극대화 (진행 중)</h4>
+                    <p>Gemini 에이전트 + Google Drive 연동으로 과거 쿼리·분석 이력 자동 탐색 및 재활용 체계 직접 설계. 신규 요청 입력 시 유사 요청 자동 탐색 → 기존 쿼리 안내 및 수정 포인트 제안.</p>
+                    <div class="work-highlight">
+                        <p>데이터 요청 대응 시간 단축 및 쿼리 재사용률 향상. 매번 처음부터 작성하던 쿼리를 AI가 유사 이력 기반으로 즉시 제안하는 구조로 전환.</p>
+                        <span class="impact">AI 에이전트 직접 설계 · 대응 시간 단축</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 선박 데이터 분석 회사 -->
+            <div class="timeline-item fade-left">
+                <div class="company">선박 데이터 분석 회사</div>
+                <div class="role">데이터 분석가</div>
+                <div class="period">2023.01 ~ 2024.05</div>
+
+                <div class="work-detail">
+                    <h4>Port Event 프로젝트 — 신규 서비스 창출</h4>
+                    <p>선박 입출항 이벤트 기반 신규 데이터 서비스를 기획부터 운영까지 전담. 데이터 전처리 → 입출항 판단 알고리즘 개발 → 스케줄러 기반 ETL 자동화 파이프라인 구축을 통해 실시간 서비스를 구현.</p>
+                    <div class="work-highlight">
+                        <p>삼성중공업, 삼성전자, 부산항터미널, KTNET, 해양진흥공사 등 신규 고객사와의 거래 체결. 서비스 런칭 후 전사 매출액 10% 이상 증가에 기여.</p>
+                        <span class="impact">신규 서비스 창출 · 매출 10%↑ · 대형 고객사 확보</span>
+                    </div>
+                </div>
+
+                <div class="work-detail">
+                    <h4>대용량 데이터 처리 및 분석</h4>
+                    <p>AWS Redshift·S3 기반 8년치 선박 AIS 대용량 데이터 처리. 항해 상태 판단 로직 개발 및 검증 보고서 작성. Python·Pandas 기반 실시간 데이터 처리 로직 개발.</p>
+                </div>
+
+                <div class="work-detail">
+                    <h4>분석·시각화 및 예측 모델</h4>
+                    <p>PostgreSQL 기반 선박 통항량 분석 및 Tableau 시각화 보고서 작성. 탄소배출(CII) 예측 모델: 상관관계 분석 및 선형회귀 예측 모델 개발. Folium 기반 주소 지도 시각화로 영업 우선순위 결정 지원.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="education-block fade-up">
+            <h3>교육</h3>
+            <div class="edu-item">
+                <div class="edu-date">2024.08</div>
+                <div class="edu-content">
+                    부스트코스 《Data Science 2024》 코칭스터디
+                </div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-date">2022.04 ~ 2022.10</div>
+                <div class="edu-content">
+                    K-디지털 트레이닝 빅데이터 과정 (한국품질재단)
+                    <div class="sub">SQL(Oracle), Python 통계·머신러닝, 딥러닝(Keras·TensorFlow·PyTorch)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills-section" id="skills">
+        <div class="section-header fade-up">
+            <span class="label">TECH STACK</span>
+            <h2>기술 스택</h2>
+            <p>다양한 환경에서 즉시 기여할 수 있는 기술 역량</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card fade-up delay-1">
+                <div class="skill-icon">🗄️</div>
+                <h4>데이터 처리</h4>
+                <div class="skill-list">
+                    BigQuery<br>
+                    AWS Redshift · S3<br>
+                    PostgreSQL<br>
+                    Oracle
+                </div>
+            </div>
+            <div class="skill-card fade-up delay-2">
+                <div class="skill-icon">💻</div>
+                <h4>언어</h4>
+                <div class="skill-list">
+                    Python<br>
+                    (Pandas, NumPy, scikit-learn)<br>
+                    SQL
+                </div>
+            </div>
+            <div class="skill-card fade-up delay-3">
+                <div class="skill-icon">📊</div>
+                <h4>시각화</h4>
+                <div class="skill-list">
+                    Tableau<br>
+                    Folium<br>
+                    Matplotlib<br>
+                    Seaborn
+                </div>
+            </div>
+            <div class="skill-card fade-up delay-4">
+                <div class="skill-icon">🤖</div>
+                <h4>자동화 · AI</h4>
+                <div class="skill-list">
+                    Gemini AI Agent<br>
+                    Slack API<br>
+                    Google Drive 연동<br>
+                    Python 자동화
+                </div>
+            </div>
+            <div class="skill-card fade-up delay-5">
+                <div class="skill-icon">🔧</div>
+                <h4>기타</h4>
+                <div class="skill-list">
+                    데이터 품질 관리<br>
+                    이상치 탐지<br>
+                    머신러닝 기초<br>
+                    통계 분석
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications & Language -->
+    <section class="cert-section" id="cert">
+        <div class="section-header fade-up">
+            <span class="label">CERTIFICATIONS & LANGUAGE</span>
+            <h2>자격증 & 어학</h2>
+        </div>
+        <div class="cert-lang-wrapper">
+            <div class="cert-card fade-left">
+                <h3>📜 자격증</h3>
+                <div class="cert-row">
+                    <div class="cert-name">GAC (Google Analytics Certification)</div>
+                    <div class="cert-meta">
+                        <span class="cert-org">Google</span>
+                        <span class="cert-date">2025.07</span>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <div class="cert-name">빅데이터분석기사</div>
+                    <div class="cert-meta">
+                        <span class="cert-org">한국데이터산업진흥원</span>
+                        <span class="cert-date">2024.12</span>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <div class="cert-name">정보처리기사</div>
+                    <div class="cert-meta">
+                        <span class="cert-org">한국산업인력공단</span>
+                        <span class="cert-date">2024.09</span>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <div class="cert-name">SQL 개발자</div>
+                    <div class="cert-meta">
+                        <span class="cert-org">한국데이터산업진흥원</span>
+                        <span class="cert-date">2023.04</span>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <div class="cert-name">데이터분석 준전문가</div>
+                    <div class="cert-meta">
+                        <span class="cert-org">한국데이터산업진흥원</span>
+                        <span class="cert-date">2022.09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lang-card fade-right">
+                <h3>🌐 어학</h3>
+                <div class="lang-row">
+                    <div>
+                        <div class="lang-name">영어</div>
+                        <div class="lang-sub">취득일: 2024.07</div>
+                    </div>
+                    <div class="lang-score">TOEIC 855</div>
+                </div>
+                <div class="lang-row">
+                    <div>
+                        <div class="lang-name">일본어</div>
+                        <div class="lang-sub">취득일: 2021.01</div>
+                    </div>
+                    <div class="lang-score">JLPT N3</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="value-section" id="value">
+        <div class="section-header fade-up">
+            <span class="label">VALUE PROPOSITION</span>
+            <h2>제가 제공할 수 있는 가치</h2>
+            <p>입사 후 즉시 기여할 수 있는 4가지 핵심 가치</p>
+        </div>
+        <div class="value-grid">
+            <div class="value-card fade-up delay-1">
+                <div class="v-num">1</div>
+                <h4>즉시 활용 가능한 SQL 분석 역량</h4>
+                <p>BigQuery·Redshift·PostgreSQL 등 다양한 환경에서 대용량 데이터를 즉시 추출·분석할 수 있습니다. 복잡한 조인, 윈도우 함수, 서브쿼리 등을 활용한 다차원 분석이 가능합니다.</p>
+            </div>
+            <div class="value-card fade-up delay-2">
+                <div class="v-num">2</div>
+                <h4>단순 추출이 아닌 문제 정의 능력</h4>
+                <p>데이터 요청의 배경과 목적을 먼저 파악하고, 비즈니스 문제를 구조화하여 범용적인 분석 체계를 설계합니다. 셀프서비스 환경 구축으로 조직 전체의 데이터 접근성을 높인 경험이 있습니다.</p>
+            </div>
+            <div class="value-card fade-up delay-3">
+                <div class="v-num">3</div>
+                <h4>자동화·ETL로 팀 효율 극대화</h4>
+                <p>반복 업무를 인식하고 자동화 시스템을 직접 설계·구현합니다. ETL 파이프라인 구축으로 신규 서비스를 창출하고, 매출 10% 이상 증가에 기여한 실적이 있습니다.</p>
+            </div>
+            <div class="value-card fade-up delay-4">
+                <div class="v-num">4</div>
+                <h4>AI 시대에 맞는 분석 생산성</h4>
+                <p>생성형 AI를 분석 업무에 직접 연결하여 생산성을 극대화합니다. 단순 활용이 아닌 AI 에이전트를 직접 설계하고 업무 프로세스에 통합한 경험을 보유하고 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h3>데이터로 문제를 정의하고, 구조를 만들어 해결합니다.</h3>
+        <p>함께 성장할 기회를 기다리고 있습니다.</p>
+        <div class="contact-line">📧 chohyeri0327@gmail.com · 📍 서울 성동구</div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Nav Shadow on Scroll
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            nav.style.boxShadow = window.scrollY > 30 
+                ? '0 4px 20px rgba(0,0,0,0.06)' 
+                : 'none';
+        });
+    </script>
+</body>
+</html>
